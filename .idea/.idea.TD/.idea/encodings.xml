@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Character/Character.cs" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Character/Enemy/Enemy.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Character/Pet/Pet.cs" charset="GB2312" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Character/Player/Player.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/TileMap/MapGenerator.cs" charset="GB2312" />
+  </component>
+</project>
