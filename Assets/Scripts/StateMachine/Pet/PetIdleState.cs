@@ -21,14 +21,12 @@ namespace StateMachine.Pet
         public void OnUpdate()
         {
             pet.GetTarget();
+            pet.GetDistance();
             if (pet.attackTarget != null)
             {
                 pet.TransitionState(PetStateType.Chase);
             }
-            
-            pet.GetDistance();
-
-            if(pet.distance > pet.idleDistance)
+            else  if(pet.distance > pet.idleDistance)
             {
                 pet.TransitionState(PetStateType.Follow);
             }

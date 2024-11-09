@@ -27,20 +27,24 @@ namespace StateMachine.Pet
             }
             
             pet.GetDistance();
-            pet.AutoPath(pet.player.transform);
+            pet.AutoPath(pet.player.transform.position);
 
-            if (pet.distance <= pet.idleDistance)
+            if (pet.pathPointList.Count > 0)
             {
-                pet.TransitionState(PetStateType.Idle);
+                if (pet.distance <= pet.idleDistance)
+                {
+                    pet.TransitionState(PetStateType.Idle);
+                }
+                else if (pet.distance >= pet.followDistance)
+                {
+                    pet.transform.position = pet.player.transform.position - new Vector3(1f,1f,0f);
+                }
+                else
+                {
+                    pet.moveDirection = pet.pathPointList[pet.currentIndex] - pet.transform.position;
+                }
             }
-            else if (pet.distance >= pet.followDistance)
-            {
-                pet.transform.position = pet.player.transform.position - new Vector3(1f,1f,0f);
-            }
-            else
-            {
-                pet.moveDirection = pet.pathPointList[pet.currentIndex] - pet.transform.position;
-            }
+            
         }
 
         public void OnFixedUpdate()

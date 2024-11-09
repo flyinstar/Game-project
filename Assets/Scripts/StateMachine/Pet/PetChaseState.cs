@@ -21,7 +21,7 @@ namespace StateMachine.Pet
         {
             if (pet.attackTarget != null)
             {
-                pet.AutoPath(pet.attackTarget.transform);
+                pet.AutoPath(pet.attackTarget.transform.position);
                 if (Vector2.Distance(pet.attackTarget.transform.position, pet.transform.position) <= pet.attackDistance)
                 {
                     pet.TransitionState(PetStateType.Attack);
@@ -30,6 +30,10 @@ namespace StateMachine.Pet
                 {
                     pet.moveDirection = pet.pathPointList[pet.currentIndex] - pet.transform.position;
                 }
+            }
+            else
+            {
+                pet.TransitionState(PetStateType.Idle);
             }
         }
 

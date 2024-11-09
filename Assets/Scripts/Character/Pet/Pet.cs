@@ -91,7 +91,7 @@ namespace Character.Pet
         }
         
         //自动寻路
-        public void AutoPath(Transform target)
+        public void AutoPath(Vector3 target)
         {
             if (target == null)
             {
@@ -103,14 +103,14 @@ namespace Character.Pet
             //固定时间刷新路径
             if (pathGernerateTimer >= pathGenerateInterval)
             {
-                GeneratePath(target.position);
+                GeneratePath(target);
                 pathGernerateTimer = 0;//重置计时器
             }
 
             //路径点为空时生成路径
             if (pathPointList == null || pathPointList.Count <= 0)
             {
-                GeneratePath(target.position);
+                GeneratePath(target);
             }
             //到达当前路径点
             else if (Vector2.Distance(pathPointList[currentIndex], transform.position) <= 0.1f)
@@ -120,7 +120,7 @@ namespace Character.Pet
                 //到达终点时重新生成路径
                 if (currentIndex >= pathPointList.Count)
                 {
-                    GeneratePath(target.position);
+                    GeneratePath(target);
                 }
             }
         }

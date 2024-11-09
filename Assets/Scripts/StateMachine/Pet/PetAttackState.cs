@@ -24,15 +24,19 @@ namespace StateMachine.Pet
             //禁止移动
             pet.rb.velocity = Vector2.zero;
             //角色翻转
-            float x = pet.transform.position.x - pet.attackTarget.transform.position.x;
-            if (x > 0)
+            if (pet.attackTarget != null)
             {
-                pet.sr.flipX = true;
+                float x = pet.transform.position.x - pet.attackTarget.transform.position.x;
+                if (x > 0)
+                {
+                    pet.sr.flipX = true;
+                }
+                if (x < 0)
+                {
+                    pet.sr.flipX = false;
+                }
             }
-            if (x < 0)
-            {
-                pet.sr.flipX = false;
-            }
+           
             //获取当前动画信息
             info = pet.anim.GetCurrentAnimatorStateInfo(0);
 
