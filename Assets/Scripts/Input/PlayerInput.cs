@@ -11,6 +11,7 @@ namespace Input
         public event UnityAction<Vector2> onMove;
         public event UnityAction onMoveStop;
         public event UnityAction onAttack;
+        // public event UnityAction onFire; 
         public event UnityAction onDodge;
 
         InputActions inputActions;
@@ -66,6 +67,11 @@ namespace Input
             {
                 onAttack?.Invoke();
             }
+
+            // if (context.performed)
+            // {
+            //     onFire?.Invoke();
+            // }
         }
 
         public void OnDodge(InputAction.CallbackContext context)
@@ -74,6 +80,16 @@ namespace Input
             {
                 onDodge?.Invoke();
             }
+        }
+
+        public void OnInteraction(InputAction.CallbackContext context)
+        {
+            //todo:交互设置
+        }
+
+        public void OnCallPet(InputAction.CallbackContext context)
+        {
+            //todo:召唤宠物
         }
     }
 }
