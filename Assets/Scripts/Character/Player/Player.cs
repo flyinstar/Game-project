@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Input;
 using StateMachine;
 using StateMachine.Player;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -85,6 +86,7 @@ namespace Character.Player
             input.onMoveStop += OnMoveStop;
             input.onAttack += Attack;
             input.onDodge += Dodge;
+            // input.onFire += Fire;
             base.OnEnable();
         }
 
@@ -170,6 +172,11 @@ namespace Character.Player
             anim.SetTrigger(AttackName);
             isAttack = true;
         }
+
+        // private void Fire()
+        // {
+        //     anim.SetTrigger("Fire");
+        // }
 
         //攻击动画帧事件
         void AttackAnimationEvent(float magnification)

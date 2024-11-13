@@ -9,21 +9,25 @@ public class Magic : MonoBehaviour
 
    public GameObject explosionPrefab;
    
-   private Rigidbody2D rb2d;
+   private Rigidbody2D rb;
 
    private void Awake()
    {
-      rb2d = GetComponent<Rigidbody2D>();
+      rb = GetComponent<Rigidbody2D>();
    }
 
    public void SetSpeed(Vector2 direction)
    {
-      rb2d.velocity = direction * speed;
+      rb.velocity = direction * speed;
    }
 
    private void OnTriggerEnter2D(Collider2D collision)
    {
-      Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-      Destroy(gameObject);
+      // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+      GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
+      exp.transform.position = transform.position;
+      
+      // Destroy(this.gameObject);
+      ObjectPool.Instance.PushObject(this.gameObject);
    }
 }

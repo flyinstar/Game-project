@@ -12,7 +12,10 @@ public class MagicExplosion : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
-            Destroy(gameObject);
+            // Destroy(this.gameObject);
+            ObjectPool.Instance.PushObject(this.gameObject);
+            
+            timer = 2;
         }
     }
 }

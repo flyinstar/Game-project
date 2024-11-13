@@ -24,8 +24,8 @@ public class MagicWeapon : MonoBehaviour
 
     private void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition + new Vector3(0, 0, Camera.main.transform.position.z));
-        Debug.Log(mousePos);
+        mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition +
+                                                  new Vector3(0, 0, Camera.main.transform.position.z));
         Shoot();
     }
 
@@ -55,7 +55,10 @@ public class MagicWeapon : MonoBehaviour
 
     void Fire()
     {
-        GameObject magic = Instantiate(magicPrefab,staffTopPos.transform.position, Quaternion.identity);
+        // GameObject magic = Instantiate(magicPrefab, staffTopPos.position, Quaternion.identity);
+        GameObject magic = ObjectPool.Instance.GetObject(magicPrefab);
+        magic.transform.position = staffTopPos.position;
+        
         magic.GetComponent<Magic>().SetSpeed(direction);
     }
 }
