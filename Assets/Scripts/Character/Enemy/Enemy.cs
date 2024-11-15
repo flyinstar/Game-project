@@ -172,7 +172,7 @@ namespace Character.Enemy
                 GeneratePath(player.position);
             }
             //到达当前路径点
-            else if (Vector2.Distance(pathPointList[currentIndex], transform.position) <= 0.1f)
+            else if (pathPointList.Count>0 && Vector2.Distance(pathPointList[currentIndex], transform.position) <= 0.1f)
             {
                 //索引指向下一个路径点
                 currentIndex++;

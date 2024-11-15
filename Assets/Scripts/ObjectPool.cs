@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +5,17 @@ public class ObjectPool
 {
     private Dictionary<string, Queue<GameObject>> objectPool = new Dictionary<string, Queue<GameObject>>();
     private GameObject pool;
-    private static ObjectPool instance;
+    private static ObjectPool _instance;
+    private float timer;
     public static ObjectPool Instance
     {
         get
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = new ObjectPool();
+                _instance = new ObjectPool();
             }
-            return instance;
+            return _instance;
         }
     }
     

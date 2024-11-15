@@ -72,6 +72,7 @@ namespace Character.Pet
 
         protected override void OnEnable()
         {
+            TransitionState(PetStateType.Idle);
             //base.maxHealth = 100f;
             //base.OnEnable();
         }

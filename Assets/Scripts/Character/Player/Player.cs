@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Input;
 using StateMachine;
 using StateMachine.Player;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -34,6 +33,11 @@ namespace Character.Player
         public Vector2 inputDirection;
         [FormerlySerializedAs("BaseSpeed")] public float baseSpeed;
         public float speed;
+        
+        [Header("召唤")]
+        public GameObject petPrefab;
+        private GameObject petInstance;
+        private bool isCalled;
 
         [Header("攻击")]
         public float attackPower;//攻击力
@@ -86,6 +90,7 @@ namespace Character.Player
             input.onMoveStop += OnMoveStop;
             input.onAttack += Attack;
             input.onDodge += Dodge;
+            input.onCallPet += CallPet;
             // input.onFire += Fire;
             base.OnEnable();
         }
@@ -239,6 +244,29 @@ namespace Character.Player
             isDeath = true;
             TransitionState(PlayerStateType.Death);
         }
-        #endregion 
+        #endregion
+
+        #region 召唤
+        private void CallPet()
+        {
+            if (petInstance == null)
+            {
+                petInstance = Instantiate(petPrefab, transform.position, Quaternion.identity);
+                petInstance.transform.SetParent(this.transform);
+            }
+            
+            if (!isCalled)
+            {
+                petInstance.transform.position = transform.position + new Vector3(0, -1f, 0);
+                petInstance.SetActive(true);
+                isCalled = true;
+            }
+            else if (isCalled)
+            {
+                petInstance.SetActive(false);
+                isCalled = false;
+            }
+        }
+        #endregion
     }
 }

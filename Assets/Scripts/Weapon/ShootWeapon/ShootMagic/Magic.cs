@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Character.Player;
 using UnityEngine;
 
 public class Magic : MonoBehaviour
 {
    public float speed;
+   public float damage;
 
    public GameObject explosionPrefab;
    
@@ -23,9 +22,15 @@ public class Magic : MonoBehaviour
 
    private void OnTriggerEnter2D(Collider2D collision)
    {
+      if (collision.CompareTag("Enemy"))
+      {
+         collision.gameObject.GetComponent<Character.Character>().TakeDamage(damage);
+      }
+     
       // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
       GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
       exp.transform.position = transform.position;
+      exp.transform.rotation = Quaternion.identity;
       
       // Destroy(this.gameObject);
       ObjectPool.Instance.PushObject(this.gameObject);

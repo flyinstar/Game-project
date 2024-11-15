@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class MagicWeapon : MonoBehaviour
 {
+    private static readonly int Fire1 = Animator.StringToHash("Fire");
     public float interval = 0.5f;
     
     public GameObject magicPrefab;
     
-    private Transform staffTopPos;
+    private Transform topPos;
     
     private Vector2 mousePos;
     
@@ -19,13 +20,14 @@ public class MagicWeapon : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        staffTopPos = transform.Find("staffTop");
+        topPos = transform.Find("Top");
     }
 
     private void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition +
-                                                  new Vector3(0, 0, Camera.main.transform.position.z));
+        if (Camera.main != null)
+            mousePos = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition +
+                                                      new Vector3(0, 0, Camera.main.transform.position.z));
         Shoot();
     }
 
@@ -55,9 +57,12 @@ public class MagicWeapon : MonoBehaviour
 
     void Fire()
     {
+        animator.SetTrigger(Fire1);
+        
         // GameObject magic = Instantiate(magicPrefab, staffTopPos.position, Quaternion.identity);
         GameObject magic = ObjectPool.Instance.GetObject(magicPrefab);
-        magic.transform.position = staffTopPos.position;
+        magic.transform.position = topPos.position;
+        magic.transform.rotation = Quaternion.identity;
         
         magic.GetComponent<Magic>().SetSpeed(direction);
     }

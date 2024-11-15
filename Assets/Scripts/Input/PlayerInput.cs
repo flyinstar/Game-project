@@ -13,6 +13,7 @@ namespace Input
         public event UnityAction onAttack;
         // public event UnityAction onFire; 
         public event UnityAction onDodge;
+        public event UnityAction onCallPet;
 
         InputActions inputActions;
 
@@ -89,7 +90,11 @@ namespace Input
 
         public void OnCallPet(InputAction.CallbackContext context)
         {
-            //todo:召唤宠物
+            //召唤宠物
+            if (context.started)
+            {
+                onCallPet?.Invoke();
+            }
         }
     }
 }
