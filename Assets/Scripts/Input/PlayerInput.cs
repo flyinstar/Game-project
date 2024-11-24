@@ -30,6 +30,11 @@ namespace Input
             SwitchActionMap(inputActions.Player);
         }
 
+        // public void EnableUIInput()
+        // {
+        //     SwitchActionMap(inputActions.UI);
+        // }
+
         //切换动作表
         void SwitchActionMap(InputActionMap actionMap)
         {

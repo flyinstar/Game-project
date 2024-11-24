@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace TileMap
@@ -36,8 +37,8 @@ namespace TileMap
         public List<ItemDate> itemDates;
 
         //用于填充图层的瓦片
-        public TileBase backgroundTile;
-        public TileBase Tile1;
+        public TileBase backgroundTile; 
+        public TileBase tile1;
 
         //地图生成数据
         public float[,] mapDate;
@@ -45,7 +46,7 @@ namespace TileMap
         public void GenerateMap()
         {
             //调整物品权重
-            itemDates.Sort((date1, date2) => { return date1.weight.CompareTo(date2.weight); });
+            itemDates.Sort((date1, date2) => date1.weight.CompareTo(date2.weight));
             //生成地图数据
             GenerateMapDate();
             //根据数据生成地图
@@ -96,7 +97,7 @@ namespace TileMap
             {
                 for( int y = 0; y < height; y++)
                 {
-                    TileBase tile = mapDate[x, y] > backgroundPobability ? backgroundTile : Tile1;
+                    TileBase tile = mapDate[x, y] > backgroundPobability ? backgroundTile : tile1;
                     groundTilemap.SetTile(new Vector3Int(x, y), tile);
                 }
             }

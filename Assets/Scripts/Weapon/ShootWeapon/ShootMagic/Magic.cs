@@ -1,3 +1,4 @@
+using System;
 using Character.Player;
 using UnityEngine;
 
@@ -9,10 +10,17 @@ public class Magic : MonoBehaviour
    public GameObject explosionPrefab;
    
    private Rigidbody2D rb;
+   private Animator animator;
 
    private void Awake()
    {
       rb = GetComponent<Rigidbody2D>();
+      animator = GetComponent<Animator>();
+   }
+
+   private void OnEnable()
+   {
+      animator.Play("MagicFlyEffect");
    }
 
    public void SetSpeed(Vector2 direction)

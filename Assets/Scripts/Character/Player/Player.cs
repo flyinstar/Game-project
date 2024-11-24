@@ -18,6 +18,9 @@ namespace Character.Player
         #region 编译器优化
         private static readonly int StopName = Animator.StringToHash("AnimationStop");
         private static readonly int AttackName = Animator.StringToHash("Attack");
+        private static readonly int InputX = Animator.StringToHash("inputX");
+        private static readonly int InputY = Animator.StringToHash("inputY");
+
         #endregion
         
         #region 组件
@@ -154,6 +157,8 @@ namespace Character.Player
         public void Move()
         {
             rb.velocity = inputDirection * speed;
+             anim.SetFloat(InputX, inputDirection.x);
+             anim.SetFloat(InputY, inputDirection.y);
             if (inputDirection.x < 0)
             {
                 sr.flipX = true;

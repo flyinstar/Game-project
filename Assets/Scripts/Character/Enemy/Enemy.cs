@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Atsar;
 using Pathfinding;
 using StateMachine;
 using StateMachine.Enemy;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Character.Enemy
 {
@@ -22,6 +25,7 @@ namespace Character.Enemy
         [HideInInspector] public Collider2D col;
         [HideInInspector] public Transform player;
         private Seeker seeker;
+        private AstarSeeker astar;
         #endregion
 
         #region 变量定义
@@ -77,6 +81,7 @@ namespace Character.Enemy
             anim = GetComponent<Animator>();
             col = GetComponent<Collider2D>();
             seeker = GetComponent<Seeker>();
+            astar = GetComponent<AstarSeeker>();
 
             states.Add(EnemyStateType.Idle, new EnemyIdleState(this));
             states.Add(EnemyStateType.Attack, new EnemyAttackState(this));
@@ -92,6 +97,12 @@ namespace Character.Enemy
         {
             MaxHealth = 100f;
             base.OnEnable();
+            // EnemyManager.Instance.enemyCount++;
+        }
+
+        private void OnDisable()
+        {
+            // EnemyManager.Instance.enemyCount--;
         }
 
         #endregion
@@ -185,12 +196,15 @@ namespace Character.Enemy
         }
 
         //路径生成函数
+        // ReSharper disable Unity.PerformanceAnalysis
         private void GeneratePath(Vector3 target)
         {
             currentIndex = 0;
 
-            //起点，终点，回调函数（获取路径点并存入路径点列表）
-            seeker.StartPath(transform.position, target, path => { pathPointList = path.vectorPath; });
+            // //起点，终点，回调函数（获取路径点并存入路径点列表）
+            // seeker.StartPath(transform.position, target, path => { pathPointList = path.vectorPath; });
+            
+            pathPointList = astar.pathFind(transform.position, target);
         }
 
         //绘图测试
